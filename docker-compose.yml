@@ -1,0 +1,41 @@
+version: '3.7'
+
+services:
+  evolution-api:
+    image: atendai/evolution-api
+    command: ["node", "./dist/src/main.js"]
+    container_name: evolution_api
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - AUTHENTICATION_API_KEY=YOUR_SUPER_SECURE_AUTHENTICATION_KEY
+    volumes:
+      - evolution_store:/evolution/store
+      - evolution_instances:/evolution/instances
+
+  postgres:
+    image: bitnami/postgresql:latest
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=smartalker
+    volumes:
+      - smartalker_pg_data:/bitnami/postgresql
+
+  redis:
+    image: bitnami/redis:latest
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - '6379:6379'
+    volumes:
+      - 'smartalker_redis_data:/bitnami/redis/data'
+
+volumes:
+  smartalker_pg_data:
+  smartalker_redis_data:
+  evolution_store:
+  evolution_instances:
