@@ -7,24 +7,30 @@ import {
   DialogTitle,
   DialogTrigger
 } from '@/components/ui/dialog';
-import { Table, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import CreateInstanceForm from '@/app/app/connection/_components/create-instance-form';
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow
+} from '@/components/ui/table';
+import CreateInstanceForm from '@/components/create-instance-form';
 
 export default function Connection() {
   return (
     <div>
-      <div className="flex justify-between mt-5 mx-10">
-        <h1>Connections</h1>
+      <div className="flex items-center justify-between my-5 mx-10">
+        <h1>Conexões</h1>
         <Dialog>
           <DialogTrigger asChild>
-            <Button>New Whatsapp</Button>
+            <Button>Novo Whatsapp</Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>New Whatsapp</DialogTitle>
+              <DialogTitle>Novo Whatsapp</DialogTitle>
               <DialogDescription>
-                Enter the information to add a new Whatsapp. Click save when
-                you&apos;re done.
+                Insira as informações para adicionar um novo Whatsapp. Clique em
+                salvar quando terminar.
               </DialogDescription>
             </DialogHeader>
 
@@ -37,13 +43,13 @@ export default function Connection() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Name</TableHead>
+              <TableHead>Nome</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead>Session</TableHead>
-              <TableHead>Default</TableHead>
-              <TableHead>Actions</TableHead>
+              <TableHead>Sessão</TableHead>
+              <TableHead>Ações</TableHead>
             </TableRow>
           </TableHeader>
+          <TableBody></TableBody>
         </Table>
       </div>
     </div>

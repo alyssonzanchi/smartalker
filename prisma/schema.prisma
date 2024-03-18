@@ -20,15 +20,18 @@ model User {
   image          String?
   hashedPassword String
   admin          Boolean @default(false)
+  superAdmin     Boolean @default(false)
   businessId     Int?
 
-  business Business? @relation(fields: [businessId], references: [id])
+  business Business? @relation(fields: [businessId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Business {
-  id    Int     @id @default(autoincrement())
-  name  String
-  cnpj  String  @unique
-  image String?
-  User  User[]
+  id       Int     @id @default(autoincrement())
+  name     String
+  cnpj     String  @unique
+  image    String?
+  status   String  @default("Ativo")
+  expireAt String
+  User     User[]
 }

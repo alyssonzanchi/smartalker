@@ -17,12 +17,9 @@ export const authOptions: NextAuthOptions = {
         },
         password: { label: 'Password', type: 'password' }
       },
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       async authorize(credentials): Promise<any> {
-        console.log('Authorize method', credentials);
-
         if (!credentials?.email || !credentials?.password)
-          throw new Error('Credentials is required');
+          throw new Error('As credenciais são obrigatórias');
 
         const user = await prisma.user.findUnique({
           where: {
@@ -30,16 +27,14 @@ export const authOptions: NextAuthOptions = {
           }
         });
 
-        console.log('User', user);
-
-        if (!user) throw new Error('User not found');
+        if (!user) throw new Error('Usuário não encontrado');
 
         const matchPassword = await bcrypt.compare(
           credentials.password,
           user.hashedPassword
         );
 
-        if (!matchPassword) throw new Error('Invalid Password');
+        if (!matchPassword) throw new Error('Senha inválida');
 
         return user;
       }

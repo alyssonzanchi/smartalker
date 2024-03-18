@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 const createInstanceFormSchema = z.object({
-  name: z.string().min(1, { message: 'Please enter the instance name' })
+  name: z.string().min(1, { message: 'Por favor informe o nome da instância' })
 });
 
 type createInstanceFormData = z.infer<typeof createInstanceFormSchema>;
@@ -20,7 +20,7 @@ export default function CreateInstanceForm() {
     handleSubmit,
     formState: { errors }
   } = useForm<createInstanceFormData>({
-    mode: 'onBlur',
+    mode: 'onSubmit',
     reValidateMode: 'onChange',
     resolver: zodResolver(createInstanceFormSchema)
   });
@@ -32,7 +32,7 @@ export default function CreateInstanceForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex items-center space-x-4 mb-2">
-        <Label htmlFor="name">Name</Label>
+        <Label htmlFor="name">Nome</Label>
         <Input id="name" {...register('name')} />
       </div>
       {errors.name && (
@@ -44,10 +44,10 @@ export default function CreateInstanceForm() {
       <DialogFooter className="mt-4">
         <DialogClose asChild>
           <Button type="button" variant="destructive">
-            Close
+            Fechar
           </Button>
         </DialogClose>
-        <Button type="submit">Save</Button>
+        <Button type="submit">Salvar</Button>
       </DialogFooter>
     </form>
   );

@@ -1,10 +1,10 @@
 import { redirect } from 'next/navigation';
-import { isAdmin } from '@/lib/isAdmin';
+import { isSuperAdmin } from '@/lib/isSuperAdmin';
 
-export default async function Dashboard() {
-  const admin = await isAdmin();
+export default async function AddUser() {
+  const superAdmin = await isSuperAdmin();
 
-  if (admin === false) {
+  if (superAdmin === false) {
     redirect('/denied');
   } else {
     return (

@@ -5,10 +5,12 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(req: NextRequest) {
   const data = await req.json();
   const { fullname, email, password } = data;
-  console.log('ROUTE HANDLER', data);
 
   if (!fullname || !email || !password) {
-    return NextResponse.json({ error: 'Invalid credentials' }, { status: 400 });
+    return NextResponse.json(
+      { error: 'Credenciais inválidas' },
+      { status: 400 }
+    );
   }
 
   const isUserExists = await prisma.user.findUnique({
@@ -18,10 +20,7 @@ export async function POST(req: NextRequest) {
   });
 
   if (isUserExists) {
-    return NextResponse.json(
-      { error: 'Email already exists' },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: 'Usuário já existe' }, { status: 400 });
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
